@@ -1,40 +1,93 @@
 ---
 import { Image } from "astro:assets";
-import bigBlue from "../assets/big-blue.jpg";
 import Link from "./link.astro";
+import bigBlue from "../assets/big-blue.jpg";
+import proscenium from "../assets/proscenium.jpg";
+import whatMakesABody from "../assets/what-makes-a-body.jpg";
+import Header from "./Header.astro";
+
+const projects = [
+    { title: "Big Blue", year: "2023", image: bigBlue },
+    { title: "Proscenium & Flyer", year: "2023", image: proscenium },
+    { title: "What Makes a Body?", year: "2022", image: whatMakesABody },
+];
 ---
 
-<main class="flex p-5 h-screen">
-    <div class="flex flex-1 flex-col pr-16 min-w-max">
-        <header class="text-sm flex">
-            <h1 class="text-nowrap">amy simons</h1>
-            <div class="w-full text-neutral-500 flex space-x-1 ml-40">
-                <Link active href="#"> big collage </Link>
-                <p>/</p>
-                <Link href="#">works on paper</Link>
-                <p>/</p>
-                <Link href="#">info</Link>
-            </div>
-        </header>
-        <section class="my-24 text-sm flex-1">
+<main class="flex h-full">
+    <div class="flex flex-1 flex-col pr-16">
+        <Header />
+        <section class="my-24 ml-4 max-w-md text-sm flex-1">
             <ul>
-                <li class="flex justify-between">
-                    <Link active href="#">Big Blue</Link>
-                    <p>2023</p>
-                </li>
-                <li>
-                    <Link href="#">Proscenium & Flyer</Link>
-                </li>
-                <li>
-                    <Link href="#">What Makes a Body?</Link>
-                </li>
+                {
+                    projects.map((project, index) => (
+                        <li>
+                            <Link
+                                href="#"
+                                class="flex justify-between "
+                                data-image-index={index}
+                                active={index === 0}
+                            >
+                                <p>{project.title}</p>
+                                <p>{project.year}</p>
+                            </Link>
+                        </li>
+                    ))
+                }
             </ul>
         </section>
         <footer class="text-neutral-400 text-sm">
-            <h1 class="">2025 - Info</h1>
+            <h1>2025 - Info</h1>
         </footer>
     </div>
-    <div class="max-w-6xl">
-        <Image src={bigBlue} alt="" />
+    <div class="max-w-6xl flex-1 relative">
+        {
+            projects.map((project, index) => (
+                <div
+                    class:list={[
+                        "absolute duration-100",
+                        { "opacity-0": index !== 0 },
+                    ]}
+                    data-image-container={index}
+                >
+                    <Image
+                        src={project.image}
+                        alt={project.title}
+                        class="w-full h-full object-contain"
+                        loading={index === 0 ? "eager" : "lazy"}
+                    />
+                </div>
+            ))
+        }
     </div>
 </main>
+
+<script>
+    const links = document.querySelectorAll("[data-image-index]");
+    const imageContainers = document.querySelectorAll("[data-image-container]");
+
+    links.forEach((link) => {
+        link.addEventListener("mouseenter", (e) => {
+            const target = (e.target as HTMLElement).closest(
+                "[data-image-index]",
+            );
+            const index = (target as HTMLElement)?.dataset.imageIndex;
+
+            if (index) {
+                imageContainers.forEach((container, i) => {
+                    container.classList.toggle(
+                        "opacity-0",
+                        i.toString() !== index,
+                    );
+                });
+            }
+        });
+    });
+
+    // Optional: reset to first image when mouse leaves the list
+    const section = document.querySelector("ul");
+    section?.addEventListener("mouseleave", () => {
+        imageContainers.forEach((container, i) => {
+            container.classList.toggle("opacity-0", i !== 0);
+        });
+    });
+</script>

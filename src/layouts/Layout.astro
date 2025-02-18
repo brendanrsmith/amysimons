@@ -11,7 +11,9 @@ import "../styles/global.css";
         <meta name="generator" content={Astro.generator} />
         <title>amy simons</title>
     </head>
-    <body class="m-0 w-full h-screen bg-neutral-950 text-white">
-        <slot />
+    <body class="m-0 w-full h-screen bg-neutral-950 text-white text-sm">
+        <main class="p-5 h-screen">
+            <slot />
+        </main>
     </body>
 </html>
