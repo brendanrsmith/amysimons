@@ -1,0 +1,13 @@
+---
+const { href, active = false } = Astro.props;
+---
+
+<a
+    class:list={[
+        active ? "text-neutral-200" : "text-neutral-400",
+        "transition-all hover:text-neutral-100",
+    ]}
+    href={href}
+>
+    <slot />
+</a>

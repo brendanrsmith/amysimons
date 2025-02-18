@@ -1,32 +1,40 @@
 ---
 import { Image } from "astro:assets";
 import bigBlue from "../assets/big-blue.jpg";
+import Link from "./link.astro";
 ---
 
 <main class="flex p-5 h-screen">
-    <div class="flex flex-1 flex-col">
+    <div class="flex flex-1 flex-col pr-16 min-w-max">
         <header class="text-sm flex">
             <h1 class="text-nowrap">amy simons</h1>
             <div class="w-full text-neutral-500 flex space-x-1 ml-40">
-                <p class="text-neutral-400">big collage</p>
+                <Link active href="#"> big collage </Link>
                 <p>/</p>
-                <p>works on paper</p>
+                <Link href="#">works on paper</Link>
                 <p>/</p>
-                <p>info</p>
+                <Link href="#">info</Link>
             </div>
         </header>
         <section class="my-24 text-sm flex-1">
             <ul>
-                <li>Big Blue</li>
-                <li>Proscenium & Flyer</li>
-                <li>What Makes a Body?</li>
+                <li class="flex justify-between">
+                    <Link active href="#">Big Blue</Link>
+                    <p>2023</p>
+                </li>
+                <li>
+                    <Link href="#">Proscenium & Flyer</Link>
+                </li>
+                <li>
+                    <Link href="#">What Makes a Body?</Link>
+                </li>
             </ul>
         </section>
         <footer class="text-neutral-400 text-sm">
             <h1 class="">2025 - Info</h1>
         </footer>
     </div>
-    <div class="max-w-2xl">
-        <Image src={bigBlue} alt="Image Description" />
+    <div class="max-w-6xl">
+        <Image src={bigBlue} alt="" />
     </div>
 </main>
