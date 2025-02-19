@@ -1,16 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import Link from "./link.astro";
-import bigBlue from "../assets/big-blue.jpg";
-import proscenium from "../assets/proscenium.jpg";
-import whatMakesABody from "../assets/what-makes-a-body.jpg";
 import Pagelayout from "../layouts/Pagelayout.astro";
-
-const projects = [
-    { title: "Big Blue", year: "2023", image: bigBlue },
-    { title: "Proscenium & Flyer", year: "2023", image: proscenium },
-    { title: "What Makes a Body?", year: "2022", image: whatMakesABody },
-];
+import { projects } from "./works";
 ---
 
 <Pagelayout>
@@ -19,7 +11,7 @@ const projects = [
             projects.map((project, index) => (
                 <li>
                     <Link
-                        href="#"
+                        href={`amysimons/work/${project.slug}`}
                         class="flex justify-between"
                         data-image-index={index}
                     >

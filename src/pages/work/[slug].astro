@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import { projects } from "../../components/works";
+import Pagelayout from "../../layouts/Pagelayout.astro";
+import Link from "../../components/link.astro";
+
+export function getStaticPaths() {
+    return projects.map((project) => ({
+        params: { slug: project.slug },
+    }));
+}
+
+const { slug } = Astro.params;
+const project = projects.find((project) => project.slug === slug);
+
+// Add error handling
+if (!project) {
+    return new Response("Project not found", { status: 404 });
+}
+
+// Now we can safely destructure because we know project exists
+const { gallery, size, description, title, year, price } = project;
+---
+
+<Pagelayout>
+    <div class="sticky top-24" slot="body">
+        <div>
+            <h1 class="mb-6">{title}</h1>
+            <p class="text-neutral-500">{year}</p>
+            <p class="text-neutral-500">{description}</p>
+            <p class="text-neutral-500">{size}</p>
+            {
+                price ? (
+                    <p class="text-neutral-500">${price.toLocaleString()}</p>
+                ) : null
+            }
+            <Link href="/amysimons">←</Link>
+        </div>
+    </div>
+    <div slot="gallery" class="space-y-4">
+        {
+            gallery?.map((image: ImageMetadata) => (
+                <Image src={image} alt={title} />
+            ))
+        }
+    </div>
+</Pagelayout>
