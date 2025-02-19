@@ -1,11 +1,12 @@
 ---
-const { href, active = false, class: className, ...rest } = Astro.props;
+// Link.astro
+const { href, active, class: className, ...rest } = Astro.props;
 ---
 
 <a
     class:list={[
-        active ? "text-neutral-200" : "text-neutral-400",
-        "transition-all hover:text-neutral-100 text-nowrap",
+        "transition-all text-nowrap text-neutral-400 hover:text-neutral-200",
+        "[&[data-active='true']]:text-neutral-200",
         className,
     ]}
     href={href}

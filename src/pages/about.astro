@@ -1,58 +1,53 @@
 ---
 import studio from "../assets/studio.jpg";
 import { Image } from "astro:assets";
-import Header from "../components/Header.astro";
 import Link from "../components/link.astro";
-import Layout from "../layouts/Layout.astro";
+import Pagelayout from "../layouts/pagelayout.astro";
 ---
 
-<Layout>
-    <Header />
-    <main class="mt-20 flex justify-between">
-        <section class="max-w-md pr-16 space-y-4 mt-4">
-            <p class="italic">
-                I make woodcut collages. Woodcut prints because from a whole
-                comes many parts, and collages because those parts together
-                become another whole. Printed on lightweight paper, the work
-                breaths and sways in response to the viewer’s presence, impacted
-                without direct contact. Contrasting with the colossal, details
-                present in each print invite closer attention; focusing care for
-                individuals within the flock.
-            </p>
-            <p class="italic">
-                I am interested in touch and how it lingers in the body as a
-                trace. I look at how bodies in proximity become shapes drawn
-                together, repel one another, or hold tension in the space
-                between. How do bodies become ecologies of mixed beings –
-                assemblages of minerals, microbiomes and humanness, further
-                mixed with memories of our past selves and promises of future
-                ones? The compositions I create are speculative relationships.
-            </p>
-            <div class="flex w-full justify-between mt-10">
-                <Link
-                    href="https://www.instagram.com/yourusername/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="font-normal"
-                >
-                    artist CV ↗
-                </Link>
-                <Link
-                    href="mailto:amy@amysimsons.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="font-normal"
-                >
-                    amy@amysimsons.com
-                </Link>
-            </div>
-        </section>
-        <section class="max-w-4xl h-full w-full relative">
-            <Image
-                src={studio}
-                alt="About Image"
-                class="absolute right-0 top-0 object-contain"
-            />
-        </section>
-    </main>
-</Layout>
+<Pagelayout>
+    <section slot="body">
+        <p class="italic">
+            I make woodcut collages. Woodcut prints because from a whole comes
+            many parts, and collages because those parts together become another
+            whole. Printed on lightweight paper, the work breaths and sways in
+            response to the viewer’s presence, impacted without direct contact.
+            Contrasting with the colossal, details present in each print invite
+            closer attention; focusing care for individuals within the flock.
+        </p>
+        <p class="italic">
+            I am interested in touch and how it lingers in the body as a trace.
+            I look at how bodies in proximity become shapes drawn together,
+            repel one another, or hold tension in the space between. How do
+            bodies become ecologies of mixed beings – assemblages of minerals,
+            microbiomes and humanness, further mixed with memories of our past
+            selves and promises of future ones? The compositions I create are
+            speculative relationships.
+        </p>
+        <div class="flex w-full justify-between mt-10">
+            <Link
+                href="https://www.instagram.com/yourusername/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-normal"
+            >
+                artist CV ↗
+            </Link>
+            <Link
+                href="mailto:amy@amysimsons.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-normal"
+            >
+                amy@amysimsons.com
+            </Link>
+        </div>
+    </section>
+    <section slot="gallery">
+        <Image
+            src={studio}
+            alt="About Image"
+            class="absolute right-0 top-0 aspect-square object-scale-down object-right"
+        />
+    </section>
+</Pagelayout>

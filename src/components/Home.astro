@@ -4,7 +4,7 @@ import Link from "./link.astro";
 import bigBlue from "../assets/big-blue.jpg";
 import proscenium from "../assets/proscenium.jpg";
 import whatMakesABody from "../assets/what-makes-a-body.jpg";
-import Header from "./Header.astro";
+import Pagelayout from "../layouts/Pagelayout.astro";
 
 const projects = [
     { title: "Big Blue", year: "2023", image: bigBlue },
@@ -13,33 +13,25 @@ const projects = [
 ];
 ---
 
-<main class="flex h-full">
-    <div class="flex flex-1 flex-col pr-16">
-        <Header />
-        <section class="my-24 ml-4 max-w-md text-sm flex-1">
-            <ul>
-                {
-                    projects.map((project, index) => (
-                        <li>
-                            <Link
-                                href="#"
-                                class="flex justify-between "
-                                data-image-index={index}
-                                active={index === 0}
-                            >
-                                <p>{project.title}</p>
-                                <p>{project.year}</p>
-                            </Link>
-                        </li>
-                    ))
-                }
-            </ul>
-        </section>
-        <footer class="text-neutral-400 text-sm">
-            <h1>2025 - Info</h1>
-        </footer>
-    </div>
-    <div class="max-w-6xl flex-1 relative">
+<Pagelayout>
+    <ul slot="body">
+        {
+            projects.map((project, index) => (
+                <li>
+                    <Link
+                        href="#"
+                        class="flex justify-between"
+                        data-image-index={index}
+                    >
+                        <p>{project.title}</p>
+                        <p>{project.year}</p>
+                    </Link>
+                </li>
+            ))
+        }
+    </ul>
+
+    <div slot="gallery">
         {
             projects.map((project, index) => (
                 <div
@@ -59,17 +51,26 @@ const projects = [
             ))
         }
     </div>
-</main>
+</Pagelayout>
 
 <script>
     const links = document.querySelectorAll("[data-image-index]");
     const imageContainers = document.querySelectorAll("[data-image-container]");
 
+    // Set first link as active by default
+    links[0].setAttribute("data-active", "true");
+
     links.forEach((link) => {
         link.addEventListener("mouseenter", (e) => {
+            // Remove active state from all links
+            links.forEach((l) => l.setAttribute("data-active", "false"));
+
             const target = (e.target as HTMLElement).closest(
                 "[data-image-index]",
             );
+            // Set active state for hovered link
+            target?.setAttribute("data-active", "true");
+
             const index = (target as HTMLElement)?.dataset.imageIndex;
 
             if (index) {
@@ -83,11 +84,16 @@ const projects = [
         });
     });
 
-    // Optional: reset to first image when mouse leaves the list
-    const section = document.querySelector("ul");
-    section?.addEventListener("mouseleave", () => {
-        imageContainers.forEach((container, i) => {
-            container.classList.toggle("opacity-0", i !== 0);
-        });
-    });
+    // Reset to first link active when mouse leaves the list
+    // const section = document.querySelector("ul");
+    // section?.addEventListener("mouseleave", () => {
+    //     // Reset active state to first link
+    //     links.forEach((link, i) => {
+    //         link.setAttribute("data-active", i === 0 ? "true" : "false");
+    //     });
+
+    //     imageContainers.forEach((container, i) => {
+    //         container.classList.toggle("opacity-0", i !== 0);
+    //     });
+    // });
 </script>

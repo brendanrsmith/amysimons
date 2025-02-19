@@ -1,16 +1,27 @@
 ---
 import Link from "./link.astro";
+const pathname = Astro.url.pathname;
 ---
 
 <header class="text-sm flex max-w-xl justify-between">
-    <h1 class="text-nowrap hover:text-pink-400">
+    <h1 class="text-nowrap">
         <a href="/amysimons">amy simons</a>
     </h1>
     <div class="text-neutral-500 flex space-x-1 ml-40">
-        <Link active href="/amysimons#big"> big collage </Link>
+        <Link data-active={pathname === "/amysimons/"} href="/amysimons#big">
+            big collage
+        </Link>
         <p>/</p>
-        <Link href="/amysimons#works">works on paper</Link>
+        <Link
+            data-active={pathname === "/amysimons#works/"}
+            href="/amysimons#works"
+        >
+            works on paper
+        </Link>
         <p>/</p>
-        <Link href="/amysimons/about">info</Link>
+        <Link
+            data-active={pathname === "/amysimons/about"}
+            href="/amysimons/about">info</Link
+        >
     </div>
 </header>
