@@ -35,7 +35,7 @@ const { gallery, size, description, title, year, price } = project;
         }
         <Link href="/amysimons">←</Link>
     </div>
-    <div slot="gallery" class="space-y-4">
+    <div slot="gallery" class="space-y-4 max-w-screen">
         {
             gallery?.map((image: ImageMetadata) => (
                 <Image src={image} alt={title} />

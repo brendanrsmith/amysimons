@@ -5,14 +5,14 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout>
-    <div class="md:flex p-5 md:min-h-screen grid">
-        <div class="max-w-5xl flex-1 relative order-last mt-10 md:mt-0">
+    <div class="sm:flex p-5 sm:min-h-screen grid">
+        <div class="max-w-5xl flex-1 relative order-last mt-10 sm:mt-0">
             <slot name="gallery" />
         </div>
 
         <div class="flex flex-1 flex-col pr-16">
             <Header />
-            <section class="md:pt-24 pt-10 ml-4 max-w-md text-sm flex-1">
+            <section class="sm:pt-24 pt-10 ml-4 max-w-sm text-sm flex-1">
                 <slot name="body" />
             </section>
             <footer class="text-neutral-600 text-xs hidden :block">

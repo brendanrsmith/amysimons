@@ -6,7 +6,7 @@ import { projects } from "./works";
 ---
 
 <Pagelayout>
-    <ul slot="body">
+    <ul slot="body" class="hidden sm:block">
         {
             projects.map((project, index) => (
                 <li>
@@ -23,22 +23,27 @@ import { projects } from "./works";
         }
     </ul>
 
-    <div slot="gallery">
+    <div slot="gallery" class="space-y-4">
         {
             projects.map((project, index) => (
                 <div
                     class:list={[
-                        "absolute duration-100",
-                        { "opacity-0": index !== 0 },
+                        "sm:absolute duration-100 max-w-screen",
+                        { "sm:opacity-0": index !== 0 },
                     ]}
                     data-image-container={index}
                 >
-                    <Image
-                        src={project.image}
-                        alt={project.title}
-                        class="w-full h-full object-contain"
-                        loading={index === 0 ? "eager" : "lazy"}
-                    />
+                    <a
+                        href={`/amysimons/work/${project.slug}`}
+                        class="disable-link"
+                    >
+                        <Image
+                            src={project.image}
+                            alt={project.title}
+                            class="w-full h-full object-contain"
+                            loading={index === 0 ? "eager" : "lazy"}
+                        />
+                    </a>
                 </div>
             ))
         }
@@ -89,3 +94,13 @@ import { projects } from "./works";
     //     });
     // });
 </script>
+
+<style>
+    @media (min-width: 640px) {
+        /* sm breakpoint */
+        .disable-link {
+            pointer-events: none;
+            cursor: default;
+        }
+    }
+</style>
